@@ -19,7 +19,7 @@
         android:id="@+id/txtViewPruebaF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="!"/>
+        android:text=""/>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -14,9 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.tarearecyclerviews.adapters.EvaluadorAdapter;
 import com.example.tarearecyclerviews.adapters.FuncionarioAdapter;
-import com.example.tarearecyclerviews.models.Evaluador;
 import com.example.tarearecyclerviews.models.Funcionario;
 
 import org.json.JSONArray;
@@ -33,8 +31,7 @@ public class FuncionariosActivity extends AppCompatActivity {
     private FuncionarioAdapter mAdapter;
     private ArrayList<Funcionario> mFuncionarioList = new ArrayList<>();
 
-    private static final String URL1 = "https://revistas.uteq.edu.ec/ws/issues.php?j_id=2";
-    private static final String URL = "https://evaladmin.uteq.edu.ec/ws/listadoaevaluar.php?e=";
+    private static final String URL2 = "https://uealecpeterson.net/ws/listadoaevaluar.php?e=";
     RequestQueue requestQueue;
 
     String e;
@@ -45,32 +42,27 @@ public class FuncionariosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_funcionarios);
 
-        b = this.getIntent().getExtras();
-
-        e = b.getString("id");
-
-
         requestQueue = Volley.newRequestQueue(this);
 
-        txtResultado = (TextView) findViewById(R.id.txtViewPruebaF);
+        b = this.getIntent().getExtras();
+        e = b.getString("id");
 
+        txtResultado = (TextView) findViewById(R.id.txtViewPruebaF);
         mRecyclerView = (RecyclerView) findViewById(R.id.rvFuncionarios);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        stringRequest();
-        //stringRequest2();
         ObtenerFuncionarios();
     }
 
     private void  ObtenerFuncionarios(){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
-                URL + e,
+                URL2 + e,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        txtResultado.append("Objeto Obtenido");
+                        //txtResultado.append("Objeto Obtenido");
                         try {
                             JSONArray arrayResponse = response.getJSONArray("listaaevaluar");
                             int tamanio = arrayResponse.length();
@@ -107,44 +99,5 @@ public class FuncionariosActivity extends AppCompatActivity {
                 }
         );
         requestQueue.add(jsonObjectRequest);
-    }
-
-    private void stringRequest(){
-        StringRequest request = new StringRequest(
-                Request.Method.GET,
-                URL1,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        txtResultado.append("DO..1");
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                }
-        );
-        requestQueue.add(request);
-    }
-    private void stringRequest2(){
-        StringRequest request = new StringRequest(
-                Request.Method.GET,
-                URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        txtResultado.append("DO..2");
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                }
-        );
-        requestQueue.add(request);
     }
 }

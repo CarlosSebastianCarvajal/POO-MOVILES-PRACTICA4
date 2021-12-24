@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private EvaluadorAdapter mAdapter;
     private ArrayList<Evaluador> mEvaluadorList = new ArrayList<>();
 
-    private static final String URL1 = "https://revistas.uteq.edu.ec/ws/issues.php?j_id=2";
-    private static final String URL = "https://evaladmin.uteq.edu.ec/ws/listadoevaluadores.php";
+    private static final String URL1 = "https://www.uealecpeterson.net/ws/listadoevaluadores.php";
     RequestQueue requestQueue;
 
     @Override
@@ -45,27 +44,21 @@ public class MainActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
         txtResultado = (TextView) findViewById(R.id.txtViewPrueba);
 
-
         mRecyclerView = (RecyclerView) findViewById(R.id.rvEvaluadores);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-
-        stringRequest();
-        stringRequest2();
         ObtenerEvaluadores();
-        //Prueballenar();
     }
 
     private void  ObtenerEvaluadores(){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
-                URL,
+                URL1,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        txtResultado.append("Objeto Obtenido");
+                        //txtResultado.append("Objeto Obtenido");
                         try {
                             JSONArray arrayResponse = response.getJSONArray("listaaevaluador");
                             int tamanio = arrayResponse.length();
@@ -87,117 +80,13 @@ public class MainActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
+                    public void onErrorResponse(VolleyError error) {  }
                 }
         );
         requestQueue.add(jsonObjectRequest);
-    }
-/*
-    private void jsonArrayRequest(){
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.GET,
-                URL1,
-                null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        int issue_id;
-                        String titulo;
-                        int volumen;
-                        int numero;
-                        int anio;
-                        String cover;
-
-                        int tamanio = response.length();
-                        for(int i=0; i<tamanio; i++){
-                            try {
-                                JSONObject jsonObject = new JSONObject(response.get(i).toString());
-                                issue_id = Integer.parseInt(jsonObject.getString("issue_id"));
-                                titulo = jsonObject.getString("title");
-                                volumen = Integer.parseInt(jsonObject.getString("volume"));
-                                numero = Integer.parseInt(jsonObject.getString("number"));
-                                anio = Integer.parseInt(jsonObject.getString("year"));
-                                cover = jsonObject.getString("cover");
-                                mRevistaList.add(new revista(1, titulo, volumen, numero, anio, cover));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        mAdapter = new RevistaAdapter(mRevistaList, R.layout.revistas_view, MainActivity.this);
-                        mRecyclerView.setAdapter(mAdapter);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                }
-        );
-        requestQueue.add(jsonArrayRequest);
-
-    }*/
-
-
-    private void Prueballenar(){
-        mEvaluadorList.clear();
-        for(int i = 0; i < 10; i++){
-            String nombre = "Sebas Carvajal";
-            String ci = "0942463746";
-            String area = "FCI";
-            String img1 = "https://s22.postimg.cc/572fvlmg1/vlad-baranov-767980-unsplash.jpg";
-            String img2 = "https://s22.postimg.cc/572fvlmg1/vlad-baranov-767980-unsplash.jpg";
-
-            mEvaluadorList.add(new Evaluador(ci, nombre, area, img1, img2));
-        }
-        mAdapter = new EvaluadorAdapter(mEvaluadorList, R.layout.evaluadores_view, MainActivity.this);
-        mRecyclerView.setAdapter(mAdapter);
-
-    }
-
-    private void stringRequest(){
-        StringRequest request = new StringRequest(
-                Request.Method.GET,
-                URL1,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        txtResultado.append("DO..1");
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                }
-        );
-        requestQueue.add(request);
-    }
-    private void stringRequest2(){
-        StringRequest request = new StringRequest(
-                Request.Method.GET,
-                URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        txtResultado.append("DO..2");
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                }
-        );
-        requestQueue.add(request);
     }
 }

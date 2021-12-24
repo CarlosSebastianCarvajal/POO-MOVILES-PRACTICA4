@@ -47,6 +47,7 @@ public class EvaluadorAdapter extends RecyclerView.Adapter<EvaluadorAdapter.View
 
         Glide.with(ctx)
                 .load(evaluador.getImgjpg())
+                .placeholder(R.drawable.unknown)
                 .error(R.drawable.unknown)
                 //.load("https://s22.postimg.cc/572fvlmg1/vlad-baranov-767980-unsplash.jpg")
                 .into(holder.imgPerfil);

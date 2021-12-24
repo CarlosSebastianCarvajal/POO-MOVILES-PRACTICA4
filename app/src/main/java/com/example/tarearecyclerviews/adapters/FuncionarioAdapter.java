@@ -47,11 +47,22 @@ public class FuncionarioAdapter extends RecyclerView.Adapter<FuncionarioAdapter.
         holder.txtGenero.setText(funcionario.getGenero());
         holder.txtSituacion.setText(funcionario.getSituacion());
         holder.txtCargo.setText(funcionario.getCargo());
+        if(funcionario.getFechainicio().equals("null")){
+            holder.txtFInicio.setText("Desconocido");
+        }else{
+            holder.txtFInicio.setText((funcionario.getFechainicio().substring(0,9)).replace("-", "/"));
+        }
+        if(funcionario.getFechafin().equals("null")){
+            holder.txtFFin.setText("Desconocido");
+        }else{
+            holder.txtFFin.setText((funcionario.getFechafin().substring(0,9)).replace("-", "/"));
+
+        }
 
         Glide.with(ctx)
                 .load(funcionario.getImgjpg())
+                .placeholder(R.drawable.unknown)
                 .error(R.drawable.unknown)
-                //.load("https://s22.postimg.cc/572fvlmg1/vlad-baranov-767980-unsplash.jpg")
                 .into(holder.imgPerfil);
     }
 
@@ -67,6 +78,8 @@ public class FuncionarioAdapter extends RecyclerView.Adapter<FuncionarioAdapter.
         private TextView txtGenero;
         private TextView txtSituacion;
         private TextView txtCargo;
+        private TextView txtFInicio;
+        private TextView txtFFin;
         private ImageView imgPerfil;
 
         public View view;
@@ -79,6 +92,8 @@ public class FuncionarioAdapter extends RecyclerView.Adapter<FuncionarioAdapter.
             this.txtGenero = (TextView) view.findViewById(R.id.txtviewGeneroF);
             this.txtSituacion = (TextView) view.findViewById(R.id.txtviewSituacionF);
             this.txtCargo = (TextView) view.findViewById(R.id.txtviewCargoF);
+            this.txtFInicio = (TextView) view.findViewById(R.id.txtviewFechaInicioF);
+            this.txtFFin = (TextView) view.findViewById(R.id.txtviewFechaFinF);
         }
     }
 }
