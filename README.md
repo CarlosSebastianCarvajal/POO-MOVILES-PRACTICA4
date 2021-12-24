@@ -4,7 +4,7 @@ Desarrollo de una aplicación móvil que muestra datos de una Api Rest utilizand
 
 CAPTURAS DE FUNCIONAMIENTO DE LA APLICACIÓN:
 
-Al Abrir la aplicación Nos muestra la siguiente pantalla (Activity), que contiene una lista de Evaluiadores:
+Al Abrir la aplicación Nos muestra la siguiente pantalla (Activity), que contiene una lista de Evaluadores:
 
 ![alt text](https://github.com/CarlosSebastianCarvajal/POO-MOVILES-PRACTICA4/blob/main/capturas/Screenshot_1640318213.png)
 
